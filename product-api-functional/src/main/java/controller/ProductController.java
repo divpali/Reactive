@@ -1,6 +1,6 @@
 package controller;
 
-import com.springwebflux.productapifunctional.ProductRepository;
+import repository.ProductRepository;
 import model.Product;
 import model.ProductEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +35,10 @@ public class ProductController {
     //we use ResponseEntity
     @GetMapping("{id}")
     public Mono<ResponseEntity<Product>> getProduct(@PathVariable String id) {
+        System.out.println("id : "+Long.valueOf(id));
         return productRepository.findById(Long.valueOf(id))
                 .map(product -> ResponseEntity.ok(product))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
-
     }
 
     @PostMapping
